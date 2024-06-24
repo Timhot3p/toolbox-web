@@ -8,7 +8,7 @@ import { GoButton } from "./buttons/GoButton";
 import { SolutionView } from "./SolutionView";
 import { SolverPicker } from "./SolverPicker";
 import { BenchmarkButton } from "./buttons/BenchmarkButton";
-import BenchmarkTable, { dataRow } from "./BenchmarkTable";
+import BenchmarkTable, { BenchmarkTableProps, dataRow } from "./BenchmarkTable";
 
 export interface ProgressHandlerProps<T> {
   /**
@@ -49,30 +49,37 @@ export const ProgressHandler = <T extends {}>(
     });
   }
 
-  const exampleData: dataRow[] = 
-    [
+  const exampleData: BenchmarkTableProps = { 
+    dataRows: [
       {
         solver: "Quantum Solver 1",
         type: "Qu",
         complexity: "O(n)",
         expectedRuntime: "10s",
+        bitsUsed: 10,
+        bitsAvailable: 20,
       },
       {
         solver: "Quantum Solver 2",
         type: "Qu",
         complexity: "O(log(n))",
         expectedRuntime: "3s",
+        bitsUsed: 20,
+        bitsAvailable: 20,
       },
       {
         solver: "Classical Solver 1",
         type: "Cl",
         complexity: "O(n²)",
         expectedRuntime: "0,1s",
+        bitsUsed: 1000,
+        bitsAvailable: 10000,
       },
-    ];
+    ],
+    problemSize: 2};
   
 
-  const [data, setData] = useState<dataRow[]>([]);
+  const [data, setData] = useState<BenchmarkTableProps>({ dataRows: [], problemSize: 0});
   const benchmarkButtonClick = () => {
     setData(exampleData);
   };
@@ -122,7 +129,7 @@ export const ProgressHandler = <T extends {}>(
 
         <Divider my={4} />  
 
-        <BenchmarkTable data={data} />
+        <BenchmarkTable dataRows={data.dataRows} problemSize={data.problemSize} />
     </Container>
   );
 };

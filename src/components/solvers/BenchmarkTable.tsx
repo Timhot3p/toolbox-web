@@ -14,38 +14,46 @@ export type dataRow = {
     type: string;
     complexity: string;
     expectedRuntime: string;
+    bitsUsed?: number;
+    bitsAvailable?: number;
 }
 
 export interface BenchmarkTableProps {
-    data: dataRow[];
+    dataRows: dataRow[];
+    problemSize: number;
 }
   
-  function BenchmarkTable({ data }: BenchmarkTableProps) {
-    
+  function BenchmarkTable({ dataRows, problemSize }: BenchmarkTableProps) {
+    if (dataRows.length === 0) {
+      return null;
+    }
     return (
       <TableContainer>
         <Table variant="simple">
-          <TableCaption>Each solvers expected performance</TableCaption>
+          
+          <TableCaption>Each solvers expected performance for problem size n = {problemSize}</TableCaption>
           <Thead>
             <Tr>
               <Th>Solver</Th>
               <Th>Type</Th>
               <Th>Complexity</Th>              
               <Th>Expected Runtime</Th>
+              <Th>Bits Used (Max)</Th>
             </Tr>
           </Thead>
           <Tbody>
-          {data.length === 0 ? (
+          {dataRows.length === 0 ? (
               <Tr>
                 <Td colSpan={3} textAlign="center"></Td>
               </Tr>
             ) : (
-              data.map((row, index) => (
+                dataRows.map((row, index) => (
                 <Tr key={index}>
                   <Td>{row.solver}</Td>
                   <Td>{row.type}</Td>
                   <Td>{row.complexity}</Td>
                   <Td>{row.expectedRuntime}</Td>
+                  <Td>{row.bitsUsed} ({row.bitsAvailable})</Td>
                 </Tr>
               ))
             )}            
