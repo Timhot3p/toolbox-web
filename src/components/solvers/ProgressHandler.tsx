@@ -1,4 +1,4 @@
-import { Box, Center, HStack } from "@chakra-ui/react";
+import { Box, Center, Divider, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { Solution } from "../../api/data-model/Solution";
 import { SolveRequest } from "../../api/data-model/SolveRequest";
@@ -7,6 +7,8 @@ import { Container } from "../Container";
 import { GoButton } from "./buttons/GoButton";
 import { SolutionView } from "./SolutionView";
 import { SolverPicker } from "./SolverPicker";
+import { BenchmarkButton } from "./buttons/BenchmarkButton";
+import BenchmarkTable, { dataRow } from "./BenchmarkTable";
 
 export interface ProgressHandlerProps<T> {
   /**
@@ -47,10 +49,41 @@ export const ProgressHandler = <T extends {}>(
     });
   }
 
+  const exampleData: dataRow[] = 
+    [
+      {
+        solver: "Quantum Solver 1",
+        type: "Qu",
+        complexity: "O(n)",
+        expectedRuntime: "10s",
+      },
+      {
+        solver: "Quantum Solver 2",
+        type: "Qu",
+        complexity: "O(log(n))",
+        expectedRuntime: "3s",
+      },
+      {
+        solver: "Classical Solver 1",
+        type: "Cl",
+        complexity: "O(n²)",
+        expectedRuntime: "0,1s",
+      },
+    ];
+  
+
+  const [data, setData] = useState<dataRow[]>([]);
+  const benchmarkButtonClick = () => {
+    setData(exampleData);
+  };
+
   return (
     <Container>
       {!wasClicked || finished ? (
         <HStack alignContent={"end"}>
+          <Center>
+            <BenchmarkButton clicked={benchmarkButtonClick} />
+          </Center>
           {props.problemTypes.map((problemType) => (
             <SolverPicker
               key={problemType}
@@ -86,6 +119,10 @@ export const ProgressHandler = <T extends {}>(
             </Box>
           ))
         : null}
+
+        <Divider my={4} />  
+
+        <BenchmarkTable data={data} />
     </Container>
   );
 };

@@ -8,12 +8,13 @@ import { EditorControls } from "../../components/solvers/EditorControls";
 import { ProgressHandler } from "../../components/solvers/ProgressHandler";
 import { TextArea } from "../../components/solvers/SAT/TextArea";
 import { LogicalExpressionValidator } from "../../converter/dimacs/LogicalExpressionValidator";
+import BenchmarkTable, { dataRow } from "../../components/solvers/BenchmarkTable";
 
 const SAT: NextPage = () => {
   const logicalExpressionValidator = new LogicalExpressionValidator();
 
   const [logicalExpressionString, setLogicalExpressionString] = useState("");
-  const [errorString, setErrorString] = useState("");
+  const [errorString, setErrorString] = useState("");  
 
   return (
     <Layout>

@@ -18,7 +18,7 @@ export interface SolverPickerProps {
 
 export const SolverPicker = (props: SolverPickerProps) => {
   const [loadingSolvers, setLoadingSolvers] = useState<boolean>(true);
-  const [solvers, setSolvers] = useState<ProblemSolver[]>([]);
+  let [solvers, setSolvers] = useState<ProblemSolver[]>([]);
   const [subRoutines, setSubRoutines] = useState<
     SubRoutineDefinition[] | undefined
   >(undefined);
@@ -66,6 +66,8 @@ export const SolverPicker = (props: SolverPickerProps) => {
   }
 
   const SolverSelection = () => {
+
+    solvers = [{ id: "1", name: "Quantum Solver 1" }, { id: "2", name: "Quantum Solver 2" }, { id: "3", name: "Classical Solver 1" }]
     return (
       <Container>
         {props.subRoutineDefinition == undefined ? null : (
