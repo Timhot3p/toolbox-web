@@ -9,6 +9,7 @@ import { SolutionView } from "./SolutionView";
 import { SolverPicker } from "./SolverPicker";
 import { BenchmarkButton } from "./buttons/BenchmarkButton";
 import BenchmarkTable, { BenchmarkTableProps, dataRow } from "./BenchmarkTable";
+import { backtracking, cdcl, grover, solversToBenchmarkTableProps } from "../../api/data-model/BenchmarkingData";
 
 export interface ProgressHandlerProps<T> {
   /**
@@ -48,7 +49,7 @@ export const ProgressHandler = <T extends {}>(
       setFinished(true);
     });
   }
-
+/*
   const exampleData: BenchmarkTableProps = { 
     dataRows: [
       {
@@ -77,11 +78,19 @@ export const ProgressHandler = <T extends {}>(
       },
     ],
     problemSize: 2};
-  
+  */
 
-  const [data, setData] = useState<BenchmarkTableProps>({ dataRows: [], problemSize: 0});
+  const exampleData = { 
+     size: [2, 3],
+     bitsAvailable: 20,
+  }
+
+  const exampleSolvers = [
+    grover, backtracking, cdcl];
+
+  const [data, setData] = useState<BenchmarkTableProps>({ dataRows: [], problemSize: "0"});
   const benchmarkButtonClick = () => {
-    setData(exampleData);
+    setData( solversToBenchmarkTableProps(exampleData.size, exampleSolvers, exampleData.bitsAvailable));
   };
 
   return (

@@ -20,7 +20,7 @@ export type dataRow = {
 
 export interface BenchmarkTableProps {
     dataRows: dataRow[];
-    problemSize: number;
+    problemSize: string;
 }
   
   function BenchmarkTable({ dataRows, problemSize }: BenchmarkTableProps) {
