@@ -1,13 +1,5 @@
 import { BenchmarkTableProps } from "../../components/solvers/BenchmarkTable";
 
-export interface solverData {
-    name: string;
-    type: 'Qu' | 'Cl',
-    complexity: string;
-    expectedRuntime: (size: number[]) => number;
-    bitsUsed: (size: number[]) => number;
-}
-
 export interface solverInstance {    
         solver: string,
         type: 'Qu' | 'Cl',
@@ -33,6 +25,14 @@ export function solversToBenchmarkTableProps(problemSize: number[], solvers: sol
        dataRows: solvers.map(solver => solverToInstance(problemSize, solver, bitsAvailable)),
        problemSize: problemSize.join("; "),
     };
+}
+
+export interface solverData {
+    name: string;
+    type: 'Qu' | 'Cl',
+    complexity: string;
+    expectedRuntime: (size: number[]) => number;
+    bitsUsed: (size: number[]) => number;
 }
 
 export const grover : solverData = {
