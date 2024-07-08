@@ -31,7 +31,7 @@ export interface BenchmarkTableProps {
       <TableContainer>
         <Table variant="simple">
           
-          <TableCaption>Each solvers expected performance for problem size n = {problemSize}</TableCaption>
+          <TableCaption>Each solvers expected performance for problem size n; k ... = {problemSize}</TableCaption>
           <Thead>
             <Tr>
               <Th>Solver</Th>

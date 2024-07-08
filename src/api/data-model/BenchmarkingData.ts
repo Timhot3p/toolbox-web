@@ -40,7 +40,7 @@ export const grover : solverData = {
     type: "Qu",
     complexity: "O(√n)",
     expectedRuntime: ([size]) => Math.sqrt(size),
-    bitsUsed: ([size]) => 10,
+    bitsUsed: ([n, k]) => n + k + 1,
 };
 
 export const backtracking : solverData = {
